@@ -22,6 +22,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
+			signup: (email, password) => {
+                console.log('SIGNUP desde FLUX');
+                const requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(
+                        {
+                            "email": email,
+                            "password": password
+                        }
+                    )
+                };
+                fetch(process.env.BACKEND_URL + '/api/signup', requestOptions)
+                    .then(response => {
+                        console.log(response.status);
+                        if (response.status === 200){
+                            setStore({ auth: true });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        localStorage.setItem("token", data.access_token);
+                        console.log(data);
+                    });
+            },
+			
 			logout: () => {
 				console.log ('logout desde flux')
 				localStorage.removeItem("token");
@@ -76,7 +102,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (i === index) elm.background = color;
 					return elm;
 				});
-
 				//reset the global store
 				setStore({ demo: demo });
 			}

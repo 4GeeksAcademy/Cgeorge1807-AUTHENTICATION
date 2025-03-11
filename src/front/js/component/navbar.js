@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate()
-
+	
 	function handelLogout(){
 		actions.logout()
 		navigate('/')
@@ -20,9 +20,6 @@ export const Navbar = () => {
 				</Link>
 				<div className="ml-auto">
 					{store.auth ? <button className="btn btn-primary" onClick={()=>handelLogout()}>Logout</button>: null}
-					{/* <Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
-					</Link> */}
 				</div>
 			</div>
 		</nav>

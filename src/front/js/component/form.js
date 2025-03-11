@@ -2,50 +2,40 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 
 const Form = () => {
-
-    
-    
     const { store, actions } = useContext(Context);
-    const [email,setEmail] = useState('')
-    const [password,setPassword] = useState('')
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    function sendData(e){
-        e.preventDefault()
-        console.log('send data')
-        console.log(email, password)
-
-        actions.login(email, password)
-        // const requestOptions = {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(
-        //         {
-        //             "email":email,
-        //             "password":password
-        //         }
-        //     )
-        // };
-        // fetch(process.env.BACKEND_URL + '/api/login', requestOptions)
-        //     .then(response => response.json())
-        //     .then(data => console.log(data));
+    function handleLogin(e) {
+        e.preventDefault();
+        console.log('send data');
+        console.log(email, password);
+        actions.login(email, password);
     }
+
+    function handleRegister(e) {
+        e.preventDefault();
+        console.log('send data');
+        console.log(email, password);
+        actions.signup(email, password);
+    }
+
     return (
         <div>
-            <form className="w-50 mx-auto" onSubmit={sendData}>
+            <form className="w-50 mx-auto" onSubmit={handleLogin}>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                    <input value={email} onChange={(e)=>setEmail(e.target.value)} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                    <input value={password} onChange={(e)=>setPassword(e.target.value)} type="password" className="form-control" id="exampleInputPassword1"/>
-                </div>                
+                    <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" id="exampleInputPassword1" />
+                </div>
                 <button type="submit" className="btn btn-primary">Login</button>
+                <button className="btn btn-primary" onClick={handleRegister}>Register</button>
             </form>
-        </div>        
+        </div>
     );
 }
 
-
-
-export default Form
+export default Form;
